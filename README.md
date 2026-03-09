@@ -27,11 +27,31 @@ The shortest path to get up and running is:
 - Install Make command (parses Makefile)
 - Run `make start`
 
-The backend will be listening on localhost:8080.
+The backend API will be reachable at **`http://localhost:8080`** from the same machine and at
+**`http://<your-machine-ip>:8080`** from any other device on your local network.
 
 > **What about the browser client application?**
 
 > Once your Platform backend is running, head over to the [platform-client-mzima](https://github.com/ushahidi/platform-client-mzima) repository to get the in-browser Platform experience!
+
+### Running the client accessible from your local network
+
+By default the `@ushahidi/platform-client-mzima` development server (Angular CLI) listens only on
+`localhost` and is **not reachable from other devices** on your local network.
+
+To expose it on all network interfaces, pass the `--host 0.0.0.0` flag to Angular CLI:
+
+```bash
+# inside the platform-client-mzima repository
+npm run web:serve -- --host 0.0.0.0
+```
+
+You can then open the client on another device using your machine's local IP address, e.g.
+`http://192.168.1.x:4200`.
+
+> **Tip:** make sure the `BACKEND_URL` variable in the client's `.env` file also points to your
+> machine's local IP (`http://192.168.1.x:8080`) instead of `http://localhost:8080`, so that the
+> browser (on the other device) can reach the API.
 
 ### Other helpful commands
 
