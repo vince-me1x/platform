@@ -170,6 +170,8 @@ return [
         Ushahidi\Modules\V3\ServiceProvider::class,
         Ushahidi\Modules\V5\ServiceProvider::class,
 
+        Ushahidi\Addons\JsonIO\ServiceProvider::class,
+
     ],
 
     /*
