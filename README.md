@@ -53,6 +53,48 @@ You can then open the client on another device using your machine's local IP add
 > machine's local IP (`http://192.168.1.x:8080`) instead of `http://localhost:8080`, so that the
 > browser (on the other device) can reach the API.
 
+### Default admin account
+
+After running `make start` the database migrations automatically create a default admin account:
+
+| Field    | Value               |
+|----------|---------------------|
+| Email    | `admin@example.com` |
+| Password | `admin`             |
+
+> **Security notice:** Change this password immediately after your first login, especially in any
+> non-local or production environment.
+
+### Creating a new admin account
+
+Use the built-in `artisan user:create` command to add extra admin (or regular) accounts at any time.
+
+**With Docker (recommended):**
+
+```bash
+# Interactive — you will be prompted for missing fields
+make create-admin
+
+# Non-interactive — pass all fields directly
+docker compose exec platform php artisan user:create \
+  --email=you@example.com \
+  --password=yourpassword \
+  --realname="Your Name" \
+  --role=admin
+```
+
+**Without Docker (bare-metal / production):**
+
+```bash
+php artisan user:create \
+  --email=you@example.com \
+  --password=yourpassword \
+  --realname="Your Name" \
+  --role=admin
+```
+
+To create a regular (non-admin) user, omit `--role` or pass `--role=user`.
+
 ### Other helpful commands
 
 You may use `make start` to restart the containers (does a full container build).

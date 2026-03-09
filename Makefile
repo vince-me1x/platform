@@ -65,6 +65,15 @@ cleanup:
 stop:
 	$(DOCKER_COMPOSE) stop
 
+# Creates an admin user inside the running platform container.
+# Usage: make create-admin email=you@example.com password=secret realname="Your Name"
+create-admin:
+	$(DOCKER_COMPOSE) exec platform php artisan user:create \
+		$(if $(email),--email=$(email)) \
+		$(if $(password),--password=$(password)) \
+		$(if $(realname),--realname="$(realname)") \
+		--role=admin
+
 # Prints instructions for running the mzima client accessible from the local network.
 # The Angular dev server only binds to localhost by default; --host 0.0.0.0 fixes that.
 local-client-help:
